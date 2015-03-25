@@ -1,8 +1,8 @@
 WARN=-Wall -Wno-uninitialized
-C=gcc
-CXX=g++
-CFLAGS=-O3 -DNDEBUG
-CXXFLAGS=-O3 -DNDEBUG -Iboost/include $(WARN)
+C?=gcc
+CXX?=g++
+CFLAGS?=-O3 -DNDEBUG
+CXXFLAGS?=-O3 -DNDEBUG -Iboost/include $(WARN)
 
 ifneq ($(wildcard boost/.),)
 	LIBS=boost/lib/libboost_thread.a boost/lib/libboost_system.a boost/lib/libboost_timer.a boost/lib/libboost_chrono.a boost/lib/libboost_iostreams.a boost/lib/libboost_program_options.a
@@ -40,12 +40,12 @@ dp/floating_sw.h  dp/scalar_dp_matrix.h  dp/score_profile.h	dp/smith_waterman.h 
 search/align.h	search/align_range.h  search/align_ungapped.h  search/collision.h  search/hit_filter.h	search/sse_dist.h  search/trace_pt_buffer.h
 
 %.o : %.cpp $(DEPS)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 %.o : %.c
-	$(C) $(CFLAGS) -c -o $@ $<
+	$(C) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 diamond : $(OBJS)
-	$(CXX) -o ../bin/$@ $(OBJS) $(LIBS)
+	$(CXX) $(LDFLAGS) -o ../bin/$@ $(OBJS) $(LIBS)
 
 all : diamond
