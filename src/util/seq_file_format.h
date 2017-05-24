@@ -71,4 +71,7 @@ struct FASTQ_format : public Sequence_file_format
 
 const Sequence_file_format* guess_format(Input_stream &file);
 
+extern const FASTA_format fasta;
+extern const FASTQ_format fastq;
+
 #endif /* SEQ_FILE_FORMAT_H_ */

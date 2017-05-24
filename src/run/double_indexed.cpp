@@ -259,9 +259,9 @@ void master_thread(Database_file &db_file, Timer &total_timer)
   const Sequence_file_format *format_n = nullptr;
   if (!config.input_format.empty()) {
     if (config.input_format == "fastq") {
-      format_n = new FASTQ_format;
+      format_n = &fastq;
     } else if (config.input_format == "fasta") {
-      format_n = new FASTA_format;
+      format_n = &fasta;
     } else {
       throw std::runtime_error("Input format --input-format must be 'fastq' or 'fasta'.");
     }

@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "seq_file_format.h"
 
+extern const FASTA_format fasta = FASTA_format {};
+extern const FASTQ_format fastq = FASTQ_format {};
+
 struct Raw_text {};
 struct Sequence_data {};
 
@@ -98,9 +101,6 @@ bool FASTQ_format::get_seq(vector<char>& id, vector<Letter>& seq, Input_stream &
 
 const Sequence_file_format * guess_format(Input_stream &file)
 {
-	static const FASTA_format fasta;
-	static const FASTQ_format fastq;
-
 	file.getline();
 	file.putback_line();
 	if (file.line.empty())
