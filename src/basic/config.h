@@ -78,6 +78,7 @@ struct Config
 	unsigned	compress_temp;
 	double	toppercent;
 	string	daa_file;
+  string input_format;
 	vector<string>	output_format;
 	string	output_file;
 	bool		forwardonly;

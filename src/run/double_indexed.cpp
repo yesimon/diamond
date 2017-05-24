@@ -256,7 +256,18 @@ void master_thread(Database_file &db_file, Timer &total_timer)
 {
 	task_timer timer("Opening the input file", true);
 	auto_ptr<Input_stream> query_file(Compressed_istream::auto_detect(config.query_file));
-	const Sequence_file_format *format_n(guess_format(*query_file));
+  const Sequence_file_format *format_n = nullptr;
+  if (!config.input_format.empty()) {
+    if (config.input_format == "fastq") {
+      format_n = new FASTQ_format;
+    } else if (config.input_format == "fasta") {
+      format_n = new FASTA_format;
+    } else {
+      throw std::runtime_error("Input format --input-format must be 'fastq' or 'fasta'.");
+    }
+  } else {
+    format_n = guess_format(*query_file);
+  }
 
 	current_query_chunk = 0;
 
