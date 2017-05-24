@@ -22,6 +22,7 @@ freely, subject to the following restrictions:
 */
 
 #include <exception>
+#include <stdexcept>
 #include <iostream>
 #include <stdexcept>
 #include "tinythread.h"
