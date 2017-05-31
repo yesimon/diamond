@@ -13,11 +13,12 @@ include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-march=native" COMPILER_SUPPORTS_MARCHNATIVE)
 if(COMPILER_SUPPORTS_MARCHNATIVE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=core2")
-endif()
+  endif()
 
 find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
 
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-uninitialized -Wno-deprecated-declarations -Wno-ignored-attributes -Wno-unused-variable")
 
