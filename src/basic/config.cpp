@@ -139,7 +139,8 @@ Config::Config(int argc, const char **argv)
 		("salltitles", 0, "include full subject titles in DAA file", salltitles)
 		("no-self-hits", 0, "suppress reporting of identical self hits", no_self_hits)
 		("taxonmap", 0, "protein accession to taxid mapping file", prot_accession2taxid)
-		("input-format", 0, "Input sequences file format", input_format);
+		("input-format", 0, "Input sequences file format", input_format)
+    ("input-compressed", 0, "Input sequences are compressed", input_compressed);
 
 	Options_group advanced("Advanced options");
 	advanced.add()

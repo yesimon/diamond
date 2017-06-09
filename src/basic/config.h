@@ -79,6 +79,7 @@ struct Config
 	double	toppercent;
 	string	daa_file;
   string input_format;
+  string input_compressed;
 	vector<string>	output_format;
 	string	output_file;
 	bool		forwardonly;

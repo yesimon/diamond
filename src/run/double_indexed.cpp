@@ -255,9 +255,22 @@ void run_query_chunk(Database_file &db_file,
 void master_thread(Database_file &db_file, Timer &total_timer)
 {
 	task_timer timer("Opening the input file", true);
-	auto_ptr<Input_stream> query_file(Compressed_istream::auto_detect(config.query_file));
+  Input_stream* query_file_ptr;
+  if (config.input_compressed.empty()) {
+    query_file_ptr = Compressed_istream::auto_detect(config.query_file);
+  } else {
+    if (config.input_compressed == "1") {
+      query_file_ptr = new Compressed_istream(config.query_file);
+    } else if (config.input_compressed == "0") {
+      query_file_ptr = new Input_stream(config.query_file);
+    }
+  }
+  auto_ptr<Input_stream> query_file(query_file_ptr);
+
   const Sequence_file_format *format_n = nullptr;
-  if (!config.input_format.empty()) {
+  if (config.input_format.empty()) {
+    format_n = guess_format(*query_file);
+  } else {
     if (config.input_format == "fastq") {
       format_n = &fastq;
     } else if (config.input_format == "fasta") {
@@ -265,8 +278,6 @@ void master_thread(Database_file &db_file, Timer &total_timer)
     } else {
       throw std::runtime_error("Input format --input-format must be 'fastq' or 'fasta'.");
     }
-  } else {
-    format_n = guess_format(*query_file);
   }
 
 	current_query_chunk = 0;
